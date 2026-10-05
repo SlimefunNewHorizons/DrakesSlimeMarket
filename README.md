@@ -1,13 +1,13 @@
 <div align="center">
 
-  <img src="https://raw.githubusercontent.com/DrakesCraft-Labs/DrakesSlimeMarket/main/banner.svg" alt="DrakesSlimeMarket Banner" width="920" />
+  <img src="https://raw.githubusercontent.com/SlimefunNewHorizons/DrakesSlimeMarket/main/banner.svg" alt="DrakesSlimeMarket Banner" width="920" />
 
 # 🏪 DrakesSlimeMarket (Tienda DrakesCraft)
 
 **Sistema de Economía Dinámica y Comercio de Materiales Slimefun4**
 
 <p>
-  <a href="https://github.com/DrakesCraft-Labs/DrakesSlimeMarket"><img src="https://img.shields.io/badge/GitHub-DrakesSlimeMarket-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
+  <a href="https://github.com/SlimefunNewHorizons/DrakesSlimeMarket"><img src="https://img.shields.io/badge/GitHub-DrakesSlimeMarket-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
   <img src="https://img.shields.io/badge/Java-21_FFM_Panama-F89820?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 21 FFM"/>
   <img src="https://img.shields.io/badge/Rust-FFM_Accelerated-FF4500?style=for-the-badge&logo=rust&logoColor=white" alt="Rust Native"/>
   <img src="https://img.shields.io/badge/Paper-1.21.11-FFD700?style=for-the-badge&logo=minecraft&logoColor=white" alt="Paper 1.21.11"/>
@@ -132,6 +132,6 @@ Ubica el archivo compilado `DrakesSlimeMarket-1.0.jar` en la carpeta `plugins/` 
 
 ## 📄 License & Intellectual Property
 
-Copyright © 2026 [**JackStar6677-1**](https://github.com/JackStar6677-1) · [**DrakesCraft Labs**](https://github.com/DrakesCraft-Labs). All Rights Reserved.
+Copyright © 2026 [**JackStar6677-1**](https://github.com/JackStar6677-1) · [**DrakesCraft Labs**](https://github.com/SlimefunNewHorizons). All Rights Reserved.
 
 This software is **Source-Available** for public inspection and technical audit. Redistribution, commercial repackaging, or unauthorized derivative distribution without explicit written permission from the author is strictly prohibited.

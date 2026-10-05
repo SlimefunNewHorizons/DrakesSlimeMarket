@@ -25,7 +25,7 @@ jobs:
       - name: Obtener Slimefun Core
         uses: actions/checkout@v6
         with:
-          repository: DrakesCraft-Labs/Slimefun4-Drake
+          repository: SlimefunNewHorizons/Slimefun4-Drake
           path: .ci/slimefun-core
 
       - name: Java 21
