@@ -46,14 +46,14 @@ jobs:
 
       - name: Verificar artefacto
         run: |
-          test -f target/DrakesSlimeMarket-1.1.0.jar
-          jar tf target/DrakesSlimeMarket-1.1.0.jar | grep -q '^cl/drakescraft/slimemarket/DrakesSlimeMarket.class$'
-          jar tf target/DrakesSlimeMarket-1.1.0.jar | grep -q '^plugin.yml$'
+          test -f target/DrakesSlimeMarket-1.2.0.jar
+          jar tf target/DrakesSlimeMarket-1.2.0.jar | grep -q '^cl/drakescraft/slimemarket/DrakesSlimeMarket.class$'
+          jar tf target/DrakesSlimeMarket-1.2.0.jar | grep -q '^plugin.yml$'
 
       - name: Publicar JAR
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v7
         with:
-          name: DrakesSlimeMarket-1.1.0
-          path: target/DrakesSlimeMarket-1.1.0.jar
+          name: DrakesSlimeMarket-1.2.0
+          path: target/DrakesSlimeMarket-1.2.0.jar
           if-no-files-found: error
