@@ -35,6 +35,9 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Preparar el repositorio Maven de la org
+        run: curl -fsSL https://raw.githubusercontent.com/SlimefunNewHorizons/.github/main/.github/scripts/bootstrap-maven-repo.sh | bash
+
       - name: Instalar Slimefun Core
         run: mvn -B -ntp -f .ci/slimefun-core/pom.xml -DskipTests install
 
