@@ -28,10 +28,7 @@ final class EconomySnapshotService {
     EconomySnapshot capture() {
         double walletTotal = 0.0D;
         int walletAccounts = 0;
-        final Set<String> excludedNames = new HashSet<>(plugin.getConfig()
-            .getStringList("pricing.circulation.excluded-usernames").stream()
-            .map(String::toLowerCase)
-            .toList());
+        final Set<String> excludedNames = excludedUsernames();
 
         for (UUID playerId : walletAccountIds()) {
             final OfflinePlayer player = Bukkit.getOfflinePlayer(playerId);
@@ -55,7 +52,7 @@ final class EconomySnapshotService {
             walletAccounts++;
         }
 
-        final BankSnapshot bankSnapshot = readSBank();
+        final BankSnapshot bankSnapshot = readSBank(excludedNames);
         return new EconomySnapshot(walletTotal, bankSnapshot.total(), walletAccounts, bankSnapshot.accounts(),
             bankSnapshot.complete());
     }
@@ -110,7 +107,7 @@ final class EconomySnapshotService {
         return Set.copyOf(onlineIds);
     }
 
-    private BankSnapshot readSBank() {
+    private BankSnapshot readSBank(Set<String> excludedNames) {
         final Plugin sBank = Bukkit.getPluginManager().getPlugin("sBank");
         if (sBank == null || !sBank.isEnabled()) {
             return new BankSnapshot(0.0D, 0, true);
@@ -122,7 +119,7 @@ final class EconomySnapshotService {
             final Object persisted = database == null ? null
                 : database.getClass().getMethod("getAllBanks").invoke(database);
             if (persisted instanceof List<?> banks) {
-                final BankSnapshot snapshot = sumBanks(banks);
+                final BankSnapshot snapshot = sumBanks(banks, excludedNames);
                 warnedAboutSBank = false;
                 return new BankSnapshot(snapshot.total(), snapshot.accounts(), true);
             }
@@ -130,7 +127,7 @@ final class EconomySnapshotService {
             final Method getBanks = sBank.getClass().getMethod("getBanks");
             final Object loaded = getBanks.invoke(null);
             if (loaded instanceof Map<?, ?> banks) {
-                final BankSnapshot snapshot = sumBanks(banks.values());
+                final BankSnapshot snapshot = sumBanks(banks.values(), excludedNames);
                 warnOnce("sBank no entrego su base completa; se usaran solo cuentas cargadas.");
                 return new BankSnapshot(snapshot.total(), snapshot.accounts(), false);
             }
@@ -141,11 +138,27 @@ final class EconomySnapshotService {
         }
     }
 
-    private BankSnapshot sumBanks(Iterable<?> banks) throws ReflectiveOperationException {
+    /** Cuentas tecnicas y del staff que no representan riqueza de jugadores (en minusculas). */
+    private Set<String> excludedUsernames() {
+        return new HashSet<>(plugin.getConfig().getStringList("pricing.circulation.excluded-usernames").stream()
+            .map(String::toLowerCase)
+            .toList());
+    }
+
+    /** Una cuenta de banco se excluye por el mismo nombre que su wallet. */
+    static boolean isExcludedBankOwner(String username, Set<String> excludedNames) {
+        return username != null && excludedNames.contains(username.toLowerCase());
+    }
+
+    private BankSnapshot sumBanks(Iterable<?> banks, Set<String> excludedNames) throws ReflectiveOperationException {
         double total = 0.0D;
         int accounts = 0;
         for (Object bank : banks) {
             if (bank == null) {
+                continue;
+            }
+            final Object owner = bank.getClass().getMethod("getUsername").invoke(bank);
+            if (owner instanceof String name && isExcludedBankOwner(name, excludedNames)) {
                 continue;
             }
             final Object balance = bank.getClass().getMethod("getBalance").invoke(bank);

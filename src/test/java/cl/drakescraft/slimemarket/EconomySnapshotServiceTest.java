@@ -36,4 +36,13 @@ class EconomySnapshotServiceTest {
             Optional.of(Set.of(persisted)), List.of()));
         assertEquals(Set.of(), EconomySnapshotService.chooseWalletAccountIds(Optional.of(Set.of()), List.of()));
     }
+
+    @Test
+    void excludedBankOwnersAreMatchedByNameIgnoringCase() {
+        final java.util.Set<String> excluded = java.util.Set.of("chagui68", ".jackstar6677315");
+        org.junit.jupiter.api.Assertions.assertTrue(EconomySnapshotService.isExcludedBankOwner("Chagui68", excluded));
+        org.junit.jupiter.api.Assertions.assertTrue(EconomySnapshotService.isExcludedBankOwner(".JackStar6677315", excluded));
+        org.junit.jupiter.api.Assertions.assertFalse(EconomySnapshotService.isExcludedBankOwner("pacox77", excluded));
+        org.junit.jupiter.api.Assertions.assertFalse(EconomySnapshotService.isExcludedBankOwner(null, excluded));
+    }
 }
