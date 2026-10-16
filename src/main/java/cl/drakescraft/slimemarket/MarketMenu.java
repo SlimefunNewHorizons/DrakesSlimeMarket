@@ -66,17 +66,17 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length > 0 && "reload".equalsIgnoreCase(args[0])) {
             if (!sender.hasPermission("drakesslimemarket.admin")) {
-                sender.sendMessage(ChatColor.RED + "No tienes permiso para recargar el mercado.");
+                sender.sendMessage(ChatColor.RED + "You do not have permission to reload the market.");
                 return true;
             }
             plugin.reloadMarket();
-            sender.sendMessage(ChatColor.GREEN + "Catalogo y precios del mercado recargados.");
+            sender.sendMessage(ChatColor.GREEN + "Market catalogue and prices reloaded.");
             return true;
         }
 
         if (args.length > 0 && "stats".equalsIgnoreCase(args[0])) {
             if (!sender.hasPermission("drakesslimemarket.admin")) {
-                sender.sendMessage(ChatColor.RED + "No tienes permiso para ver la economia interna.");
+                sender.sendMessage(ChatColor.RED + "You do not have permission to view internal economy data.");
                 return true;
             }
             sendStats(sender);
@@ -84,11 +84,11 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Solo un jugador puede abrir el mercado.");
+            sender.sendMessage("Only a player can open the market.");
             return true;
         }
         if (!isWorldAllowed(player.getWorld().getName())) {
-            player.sendMessage(ChatColor.RED + "El Mercado de Slimefun solo está disponible en las modalidades de Survival, SkyBlock y OneBlock.");
+            player.sendMessage(ChatColor.RED + "The Slimefun Market is only available in Survival, SkyBlock, and OneBlock.");
             return true;
         }
         if (catalog.entries().isEmpty()) {
@@ -110,7 +110,7 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
 
     /** Shows curated material families before showing individual offers. */
     private void openCategories(Player player) {
-        final CategoryInventory holder = new CategoryInventory(color(plugin.getConfig().getString("catalog.category-title", "&0Mercado Slimefun")));
+        final CategoryInventory holder = new CategoryInventory(color(plugin.getConfig().getString("catalog.category-title", "&0Slimefun Market")));
         for (MarketCategory category : catalog.categories()) {
             final List<CatalogEntry> entries = catalog.entriesForCategory(category);
             if (category.slot() < 0 || category.slot() >= holder.inventory.getSize() || entries.isEmpty()) {
@@ -119,12 +119,12 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
             final Material material = Material.matchMaterial(category.material());
             final List<String> lore = new ArrayList<>(category.lore().stream().map(MarketMenu::color).toList());
             lore.add("");
-            lore.add(ChatColor.GRAY + "Materiales disponibles: " + ChatColor.WHITE + entries.size());
-            lore.add(ChatColor.YELLOW + "Clic para abrir");
+            lore.add(ChatColor.GRAY + "Available materials: " + ChatColor.WHITE + entries.size());
+            lore.add(ChatColor.YELLOW + "Click to open");
             holder.inventory.setItem(category.slot(), named(material == null ? Material.CHEST : material, color(category.name()), lore));
             holder.categories.put(category.slot(), category);
         }
-        holder.inventory.setItem(49, named(Material.BARRIER, ChatColor.RED + "Cerrar", List.of()));
+        holder.inventory.setItem(49, named(Material.BARRIER, ChatColor.RED + "Close", List.of()));
         player.openInventory(holder.inventory);
     }
 
@@ -133,7 +133,7 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         final List<CatalogEntry> allEntries = catalog.entriesForCategory(category);
         final int pageCount = Math.max(1, (int) Math.ceil(allEntries.size() / (double) PAGE_SIZE));
         final int page = Math.max(0, Math.min(requestedPage, pageCount - 1));
-        final String configuredTitle = plugin.getConfig().getString("catalog.title", "&0Mercado Slimefun");
+        final String configuredTitle = plugin.getConfig().getString("catalog.title", "&0Slimefun Market");
         final String title = color(configuredTitle
             .replace("%category%", ChatColor.stripColor(color(category.name())))
             .replace("%page%", Integer.toString(page + 1))
@@ -151,17 +151,17 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         }
 
         if (allEntries.isEmpty()) {
-            inventory.setItem(22, named(Material.BARRIER, ChatColor.RED + "No hay materiales habilitados",
-                List.of(ChatColor.GRAY + "Revisa las reglas del catalogo o los addons cargados.")));
+            inventory.setItem(22, named(Material.BARRIER, ChatColor.RED + "No materials are enabled",
+                List.of(ChatColor.GRAY + "Check the catalogue rules or loaded addons.")));
         }
         if (page > 0) {
-            inventory.setItem(PREVIOUS_SLOT, named(Material.ARROW, ChatColor.GOLD + "Pagina anterior", List.of()));
+            inventory.setItem(PREVIOUS_SLOT, named(Material.ARROW, ChatColor.GOLD + "Previous page", List.of()));
         }
         inventory.setItem(INFO_SLOT, marketInfo(allEntries.size()));
         if (page + 1 < pageCount) {
-            inventory.setItem(NEXT_SLOT, named(Material.ARROW, ChatColor.GOLD + "Pagina siguiente", List.of()));
+            inventory.setItem(NEXT_SLOT, named(Material.ARROW, ChatColor.GOLD + "Next page", List.of()));
         }
-        inventory.setItem(48, named(Material.CHEST, ChatColor.YELLOW + "Categorias", List.of(ChatColor.GRAY + "Volver al indice.")));
+        inventory.setItem(48, named(Material.CHEST, ChatColor.YELLOW + "Categories", List.of(ChatColor.GRAY + "Return to the index.")));
         player.openInventory(inventory);
     }
 
@@ -223,27 +223,27 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         final long cooldownMillis = Math.max(0L, plugin.getConfig().getLong("purchase-cooldown-seconds", 2L)) * 1000L;
         final long availableAt = cooldowns.getOrDefault(player.getUniqueId(), 0L);
         if (now < availableAt) {
-            fail(player, "Espera " + Math.max(1L, (availableAt - now + 999L) / 1000L) + " s antes de otra compra.");
+            fail(player, "Wait " + Math.max(1L, (availableAt - now + 999L) / 1000L) + " s before another purchase.");
             return;
         }
 
         final ItemStack bought = entry.createItem(amount);
         if (!canFit(player.getInventory(), bought)) {
-            fail(player, "No tienes espacio para recibir esa compra.");
+            fail(player, "You do not have enough space for this purchase.");
             return;
         }
 
         final double unitPrice = pricing.unitPrice(entry);
         final double total = Math.round(unitPrice * amount * 100.0D) / 100.0D;
         if (!economy.has(player, total)) {
-            fail(player, "Necesitas " + economy.format(total) + ".");
+            fail(player, "You need " + economy.format(total) + ".");
             return;
         }
 
         final ItemStack[] before = cloneContents(player.getInventory().getStorageContents());
         final EconomyResponse withdrawal = economy.withdrawPlayer(player, total);
         if (!withdrawal.transactionSuccess()) {
-            fail(player, "La economia rechazo la compra: " + withdrawal.errorMessage);
+            fail(player, "The economy rejected the purchase: " + withdrawal.errorMessage);
             return;
         }
 
@@ -253,7 +253,7 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
             final EconomyResponse refund = economy.depositPlayer(player, total);
             plugin.getLogger().severe("Compra revertida para " + player.getName() + " por sobrantes; reembolso="
                 + refund.transactionSuccess());
-            fail(player, "La entrega no fue segura y el cobro fue revertido.");
+            fail(player, "Delivery was not safe and the charge was reverted.");
             return;
         }
 
@@ -261,8 +261,8 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         pricing.registerPurchase(entry.id(), amount);
         auditLogger.purchase(player, entry, amount, unitPrice, total, economy.getBalance(player));
         player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.8F, 1.15F);
-        player.sendMessage(ChatColor.GREEN + "Compraste " + amount + "x " + entry.displayName()
-            + ChatColor.GREEN + " por " + ChatColor.GOLD + economy.format(total) + ChatColor.GREEN + ".");
+        player.sendMessage(ChatColor.GREEN + "You bought " + amount + "x " + entry.displayName()
+            + ChatColor.GREEN + " for " + ChatColor.GOLD + economy.format(total) + ChatColor.GREEN + ".");
     }
 
     private ItemStack createOfferIcon(CatalogEntry entry) {
@@ -273,12 +273,12 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
         lore.add(ChatColor.DARK_GRAY + entry.id());
         lore.add(ChatColor.GRAY + "Addon: " + ChatColor.AQUA + entry.addon());
         lore.add("");
-        lore.add(ChatColor.GOLD + "Unidad: " + ChatColor.WHITE + economy.format(price));
+        lore.add(ChatColor.GOLD + "Unit: " + ChatColor.WHITE + economy.format(price));
         lore.add(ChatColor.GOLD + "Stack x" + entry.maxStackSize() + ": " + ChatColor.WHITE
             + economy.format(price * entry.maxStackSize()));
         lore.add("");
-        lore.add(ChatColor.YELLOW + "Click: comprar una unidad");
-        lore.add(ChatColor.LIGHT_PURPLE + "Shift + click: comprar un stack");
+        lore.add(ChatColor.YELLOW + "Click: buy one unit");
+        lore.add(ChatColor.LIGHT_PURPLE + "Shift + click: buy a stack");
         meta.setLore(lore);
         icon.setItemMeta(meta);
         return icon;
@@ -286,26 +286,26 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
 
     private ItemStack marketInfo(int itemCount) {
         final DynamicPricing.MarketStats stats = pricing.stats();
-        final String refresh = stats.refreshedAt() == 0L ? "pendiente" : TIME_FORMAT.format(Instant.ofEpochSecond(stats.refreshedAt()));
-        return named(Material.CLOCK, ChatColor.GOLD + "Mercado dinamico", List.of(
-            ChatColor.GRAY + "Materiales: " + ChatColor.WHITE + itemCount,
-            ChatColor.GRAY + "Circulacion observada: " + ChatColor.WHITE + economy.format(stats.totalWealth()),
-            ChatColor.GRAY + "Depositos sBank: " + ChatColor.WHITE + economy.format(stats.bankWealth()),
-            ChatColor.GRAY + "Indice compra/venta: " + ChatColor.WHITE
+        final String refresh = stats.refreshedAt() == 0L ? "pending" : TIME_FORMAT.format(Instant.ofEpochSecond(stats.refreshedAt()));
+        return named(Material.CLOCK, ChatColor.GOLD + "Dynamic Market", List.of(
+            ChatColor.GRAY + "Materials: " + ChatColor.WHITE + itemCount,
+            ChatColor.GRAY + "Observed circulation: " + ChatColor.WHITE + economy.format(stats.totalWealth()),
+            ChatColor.GRAY + "sBank deposits: " + ChatColor.WHITE + economy.format(stats.bankWealth()),
+            ChatColor.GRAY + "Buy/sell index: " + ChatColor.WHITE
                 + String.format(Locale.ROOT, "%.3f / %.3f", stats.buyFactor(), stats.sellFactor()),
-            ChatColor.GRAY + "Ventana de precios: " + ChatColor.WHITE + refresh,
-            ChatColor.DARK_GRAY + "Los precios se recalculan cada 30 minutos."
+            ChatColor.GRAY + "Price window: " + ChatColor.WHITE + refresh,
+            ChatColor.DARK_GRAY + "Prices are recalculated every 30 minutes."
         ));
     }
 
     private void sendStats(CommandSender sender) {
         final DynamicPricing.MarketStats stats = pricing.stats();
-        sender.sendMessage(ChatColor.GOLD + "DrakesSlimeMarket" + ChatColor.GRAY + " | ofertas: " + stats.pricedItems());
-        sender.sendMessage(ChatColor.GRAY + "Circulacion observada: " + economy.format(stats.totalWealth())
+        sender.sendMessage(ChatColor.GOLD + "DrakesSlimeMarket" + ChatColor.GRAY + " | offers: " + stats.pricedItems());
+        sender.sendMessage(ChatColor.GRAY + "Observed circulation: " + economy.format(stats.totalWealth())
             + " | sBank: " + economy.format(stats.bankWealth()));
-        sender.sendMessage(ChatColor.GRAY + "Cuentas wallet/banco: " + stats.walletAccounts() + "/" + stats.bankAccounts()
-            + " | banco completo: " + stats.bankSnapshotComplete());
-        sender.sendMessage(ChatColor.GRAY + "Indice compra/venta: "
+        sender.sendMessage(ChatColor.GRAY + "Wallet/bank accounts: " + stats.walletAccounts() + "/" + stats.bankAccounts()
+            + " | complete bank: " + stats.bankSnapshotComplete());
+        sender.sendMessage(ChatColor.GRAY + "Buy/sell index: "
             + String.format(Locale.ROOT, "%.4f / %.4f", stats.buyFactor(), stats.sellFactor()));
     }
 

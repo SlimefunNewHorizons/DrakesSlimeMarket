@@ -3,12 +3,12 @@ version: ${project.version}
 main: cl.drakescraft.slimemarket.DrakesSlimeMarket
 api-version: '1.21'
 authors: [JackStar6677-1]
-description: Mercado dinamico de materiales Slimefun para DrakesCraft.
+description: Dynamic Slimefun material market for DrakesCraft.
 depend: [Slimefun, Vault]
 softdepend: [PlaceholderAPI, sBank, Odysseia]
 commands:
   sfmercado:
-    description: Abre el mercado de materiales Slimefun.
+    description: Opens the Slimefun material market.
     usage: /sfmercado [reload|stats]
     permission: drakesslimemarket.use
 permissions:

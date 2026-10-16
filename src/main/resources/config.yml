@@ -1,6 +1,6 @@
 catalog:
-  title: '&0Mercado Slimefun &8| &6%page%&8/&6%pages%'
-  category-title: '&0Mercado Slimefun &8| &bMateriales'
+  title: '&0Slimefun Market &8| &6%page%&8/&6%pages%'
+  category-title: '&0Slimefun Market &8| &bMaterials'
   auto-discovery: true
   rotation:
     enabled: true
@@ -27,62 +27,62 @@ catalog:
     basicos:
       slot: 19
       material: REDSTONE
-      name: '&e&lMateriales básicos'
-      lore: ['&7Polvos, minerales, chatarra y recursos iniciales.', '&8La selección rota cada 30 minutos.']
+      name: '&e&lBasic Materials'
+      lore: ['&7Dusts, ores, scrap, and early resources.', '&8The selection rotates every 30 minutes.']
       id-fragments: [DUST, POWDER, NUGGET, ORE, SCRAP, RAW, CHUNK, PIECE, ASH, FLAKE, SLIME, GOO, GEL]
     componentes:
       slot: 21
       material: IRON_INGOT
-      name: '&b&lComponentes'
-      lore: ['&7Lingotes, placas, aleaciones y piezas de receta.', '&8Sin máquinas, energía ni automatización.']
+      name: '&b&lComponents'
+      lore: ['&7Ingots, plates, alloys, and recipe parts.', '&8No machines, energy, or automation.']
       id-fragments: [INGOT, PLATE, ALLOY, FIBER, CLOTH, RUBBER, PLASTIC, CARBON, SILICON, MAGNESIUM, ALUMINUM, ALUMINIUM, LEAD, TIN, ZINC, SILVER, ROD, WIRE, GEAR, BOLT, SPRING]
     raros:
       slot: 23
       material: AMETHYST_SHARD
-      name: '&d&lRecursos raros'
-      lore: ['&7Gemas, esencias, cristales y fragmentos.', '&8No incluye endgame, máquinas ni equipo.']
+      name: '&d&lRare Resources'
+      lore: ['&7Gems, essences, crystals, and shards.', '&8No endgame, machines, or equipment included.']
       id-fragments: [GEM, ESSENCE, SHARD, CRYSTAL, PEARL, SHELL, SCALE]
     automatizacion_controlada:
       slot: 41
       material: OBSERVER
-      name: '&6&lAutomatización controlada'
-      lore: ['&7Seis nodos útiles de Networks para logística inicial.', '&cMuy caros: no reemplazan progresión ni storage.']
+      name: '&6&lControlled Automation'
+      lore: ['&7Six useful Networks nodes for early logistics.', '&cVery expensive: they do not replace progression or storage.']
       id-fragments: [NTW_GRABBER, NTW_PUSHER, NTW_VANILLA_GRABBER, NTW_VANILLA_PUSHER, NTW_VACUUM, NTW_TRASH]
     organicos:
       slot: 25
       material: WHEAT
-      name: '&a&lOrgánicos y cultivo'
-      lore: ['&7Semillas, fibras, resinas y cosechas de addons.', '&8Una vía cómoda, sin vender comida terminada.']
+      name: '&a&lOrganic & Farming'
+      lore: ['&7Seeds, fibers, resins, and addon crops.', '&8A convenient route without selling finished food.']
       id-fragments: [SEED, PULP, JUICE, BERRY, FRUIT, VEGETABLE, HERB, FLOWER, RESIN, DYE, LEATHER, STRING, BONE, FEATHER]
     recursos_vanilla:
       slot: 29
       material: COAL
-      name: '&f&lRecursos vanilla'
-      lore: ['&7Minerales, piedra y recursos base en stacks.', '&8Sin utilidades, estaciones ni contenedores.']
+      name: '&f&lVanilla Resources'
+      lore: ['&7Ores, stone, and base resources in stacks.', '&8No utilities, stations, or containers.']
       id-fragments: [VANILLA_RECURSOS_]
     bloques:
       slot: 31
       material: STONE_BRICKS
-      name: '&7&lConstrucción vanilla'
-      lore: ['&7Bloques base para construir en stacks.', '&8Lista curada para builders.']
+      name: '&7&lVanilla Building'
+      lore: ['&7Base blocks for building in stacks.', '&8Curated list for builders.']
       id-fragments: [VANILLA_BLOQUES_]
     decoracion:
       slot: 33
       material: WHITE_CONCRETE
-      name: '&d&lDecoración vanilla'
-      lore: ['&7Vidrio, terracota y detalles de construcción.', '&8Sin almacenamiento o utilidades.']
+      name: '&d&lVanilla Decoration'
+      lore: ['&7Glass, terracotta, and building details.', '&8No storage or utilities.']
       id-fragments: [VANILLA_DECORACION_]
     maderas:
       slot: 37
       material: OAK_LOG
-      name: '&6&lMaderas vanilla'
-      lore: ['&7Troncos, tablas y bloques de madera.', '&8Para construir, no para automatización.']
+      name: '&6&lVanilla Wood'
+      lore: ['&7Logs, planks, and wooden blocks.', '&8For building, not automation.']
       id-fragments: [VANILLA_MADERAS_]
     novedades_121:
       slot: 39
       material: TUFF_BRICKS
       name: '&a&lBloques 1.21'
-      lore: ['&7Tuff, cobre decorativo y pale oak.', '&8Curado para construcción.']
+      lore: ['&7Tuff, decorative copper, and pale oak.', '&8Curated for building.']
       id-fragments: [VANILLA_121_]
   entries:
     BRONZE_INGOT: {base-price: 750.0}

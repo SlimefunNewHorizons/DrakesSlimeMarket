@@ -163,14 +163,14 @@ final class MarketCatalog {
     /** Mantiene el mercado seguro y navegable incluso al arrancar con una configuración previa. */
     private static List<MarketCategory> defaultCategories() {
         return List.of(
-            new MarketCategory("basicos", 20, "REDSTONE", "&aMateriales básicos",
-                List.of("&7Polvos, minerales y restos.", "&8Compra: &f%count% materiales"),
+            new MarketCategory("basicos", 20, "REDSTONE", "&aBasic Materials",
+                List.of("&7Dusts, ores, and scrap.", "&8Buy: &f%count% materials"),
                 List.of("DUST", "POWDER", "NUGGET", "ORE", "SCRAP")),
-            new MarketCategory("componentes", 22, "IRON_INGOT", "&eComponentes",
-                List.of("&7Lingotes y piezas intermedias.", "&8Compra: &f%count% materiales"),
+            new MarketCategory("componentes", 22, "IRON_INGOT", "&eComponents",
+                List.of("&7Ingots and intermediate parts.", "&8Buy: &f%count% materials"),
                 List.of("INGOT", "PLATE", "ALLOY", "FIBER", "CLOTH", "RUBBER", "PLASTIC", "CARBON", "SILICON", "MAGNESIUM", "ALUMINUM", "ALUMINIUM", "LEAD", "TIN", "ZINC", "SILVER")),
-            new MarketCategory("raros", 24, "AMETHYST_SHARD", "&dMateriales raros",
-                List.of("&7Gemas y componentes escasos.", "&8Compra: &f%count% materiales"),
+            new MarketCategory("raros", 24, "AMETHYST_SHARD", "&dRare Materials",
+                List.of("&7Gems and scarce components.", "&8Buy: &f%count% materials"),
                 List.of("GEM", "ESSENCE", "SHARD", "CRYSTAL"))
         );
     }
