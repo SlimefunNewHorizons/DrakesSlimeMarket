@@ -4,26 +4,25 @@
 
 # 🏪 DrakesSlimeMarket (Tienda DrakesCraft)
 
-**Sistema de Economía Dinámica y Comercio de Materiales Slimefun4**
+**Sistema de Economía Dinámica y Comercio de Materiales Slimefun**
 
 <p>
   <a href="https://github.com/SlimefunNewHorizons/DrakesSlimeMarket"><img src="https://img.shields.io/badge/GitHub-DrakesSlimeMarket-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
-  <img src="https://img.shields.io/badge/Java-21_FFM_Panama-F89820?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 21 FFM"/>
-  <img src="https://img.shields.io/badge/Rust-FFM_Accelerated-FF4500?style=for-the-badge&logo=rust&logoColor=white" alt="Rust Native"/>
-  <img src="https://img.shields.io/badge/Paper-1.21.11-FFD700?style=for-the-badge&logo=minecraft&logoColor=white" alt="Paper 1.21.11"/>
+  <img src="https://img.shields.io/badge/Purpur-26.2_%2F_1.21.x-FFD700?style=for-the-badge&logo=minecraft&logoColor=white" alt="Purpur 26.2"/>
+  <img src="https://img.shields.io/badge/Java-21%2F25-F89820?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 21/25"/>
+  <img src="https://img.shields.io/badge/Rust-FFM_Bridge-FF4500?style=for-the-badge&logo=rust&logoColor=white" alt="Rust Native"/>
 </p>
 
 </div>
 
-> ### 🏰 ¡Únete a la Comunidad Oficial de DrakesCraft!
-> 
-> * 🎮 **IP del Servidor**: `play.drakescraft.cl` *(Java 1.21.11 & Bedrock)*
-> * 💬 **Discord Oficial**: [discord.gg/drakescraft](https://discord.gg/rv3vtXZTk7)
-> * 🌐 **Web & Guía**: [web.drakescraft.cl](https://web.drakescraft.cl) — 🛒 **Tienda**: [web.drakescraft.cl/store](https://web.drakescraft.cl/store.html)
-> 
-> *¡Juega con este addon y más de 80 expansiones optimizadas en vivo en nuestra network de supervivencia técnica!*
+> ### 🏰 Comunidad Oficial de DrakesCraft
+>
+> * 🎮 **IP del Servidor**: `mc.drakescraft.cl` *(Java & Bedrock)*
+> * 💬 **Discord Oficial**: [discord.gg/rv3vtXZTk7](https://discord.gg/rv3vtXZTk7)
+> * 🌐 **Portal Web & Guía**: [web.drakescraft.cl](https://web.drakescraft.cl)
+> * 🛒 **Tienda Oficial**: [drakescraft-v2.tebex.io](https://drakescraft-v2.tebex.io)
 
----
+> **Nota de ecosistema (`StarSuites`):** También disponible como módulo integrado (`market`) en `drakes-server` dentro de [Drakes-Suites (`26.x`)](https://github.com/SlimefunNewHorizons/Drakes-Suites).
 
 ---
 
@@ -118,7 +117,7 @@ sBank y las transacciones Bukkit siempre permanecen autoritativos en Java.
 mvn clean package
 ```
 
-Ubica el archivo compilado `DrakesSlimeMarket-1.0.jar` en la carpeta `plugins/` de tu servidor Minecraft Paper/Purpur 1.21.11.
+Ubica el archivo compilado `target/DrakesSlimeMarket-1.2.0.jar` en la carpeta `plugins/` de tu servidor **Purpur 26.2** (Java 25) o **Paper 1.21.x** (Java 21+).
 
 ---
 
