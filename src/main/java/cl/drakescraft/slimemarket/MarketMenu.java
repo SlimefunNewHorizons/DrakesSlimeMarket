@@ -172,6 +172,10 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
             if (!(event.getWhoClicked() instanceof Player player) || event.getRawSlot() < 0) {
                 return;
             }
+            if (event.getRawSlot() == 49) {
+                player.closeInventory();
+                return;
+            }
             final MarketCategory category = categories.categories.get(event.getRawSlot());
             if (category != null) {
                 open(player, category, 0);
@@ -207,7 +211,8 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onDrag(InventoryDragEvent event) {
-        if (event.getInventory().getHolder() instanceof MarketInventory) {
+        final InventoryHolder holder = event.getInventory().getHolder();
+        if (holder instanceof MarketInventory || holder instanceof CategoryInventory) {
             event.setCancelled(true);
         }
     }
@@ -235,6 +240,10 @@ final class MarketMenu implements CommandExecutor, TabCompleter, Listener {
 
         final double unitPrice = pricing.unitPrice(entry);
         final double total = Math.round(unitPrice * amount * 100.0D) / 100.0D;
+        if (amount <= 0 || !Double.isFinite(total) || total <= 0.0D) {
+            fail(player, "Precio invalido para este articulo.");
+            return;
+        }
         if (!economy.has(player, total)) {
             fail(player, "Necesitas " + economy.format(total) + ".");
             return;
